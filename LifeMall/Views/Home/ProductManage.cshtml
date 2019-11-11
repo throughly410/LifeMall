@@ -1,0 +1,284 @@
+﻿<style>
+    .tableAdjust td {
+        text-align: center;
+        color: blue
+    }
+
+    .blockProductTitle {
+        display: block;
+        width: 800px
+    }
+
+    .blockProduct {
+        display: block;
+        z-index: 20;
+    }
+    .modal-backdrop {
+        z-index: 1040;
+        display:none;
+    }
+
+    .modal-dialog {
+        margin: 2px auto;
+        z-index: 1100;
+    }
+    .blockProduct td img{
+        padding:20px;
+
+
+    }
+</style>
+
+<div class="blockProduct" id="blockProduct">
+    <h1>產品管理頁面</h1>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">新增產品</button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group m-auto d-flex justify-content-center align-items-center">
+                            <img v-bind:src="imgUrl" width="250px" alt="">
+                        </div>
+                        <div class="form-group">
+                            <input type="file" class="form-control" id="recipient-name" v-on:change="PreviewImage(event)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">產品名稱</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">產品價格</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">產品描述</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="tableAdjust" border=2 width="800px" height="auto" align="center">
+        <tr>
+            <th>產品名稱</th>
+            <th>產品價格</th>
+            <th>產品描述</th>
+            <th>產品圖片</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為，每個人對自己的人生擁有絕對的詮釋權，這是任何人都奪不走的。明白這個道理是我三十二歲那年，活到不想活不下去時得到的意外禮物。此後遇見挫敗哀傷，我不會再回頭連結過往的悲慘記憶，告訴自己有多可憐，因為它們已經被我「重新定義」，慢慢轉化成養分了。因此遇見這本書的「目的論」時，我非常驚喜！原來這個「魔法」早就有人發現。這是我們與生俱來的魔法，請發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+        <tr>
+            <td>被討厭的勇氣</td>
+            <td>250</td>
+            <td width="40%">　我一直認為發現它，並好好地運用它</td>
+            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+            <td><button>編輯</button></td>
+            <td><button>刪除</button></td>
+        </tr>
+    </table>
+
+
+</div>
+
+
+<script src="~/Scripts/vue.min.js"></script>
+
+<script>
+        
+    var vm = new Vue({
+        el:"#blockProduct",
+        data: {
+            imgUrl:"../ProductImage/imageDefault.jpg",
+
+
+        },
+        mounted: function () { },
+        methods: {
+
+            PreviewImage: function (event)
+            {
+                var file = event.target.files[0];
+                this.imgUrl = URL.createObjectURL(file);
+
+
+            },
+
+
+
+        },
+
+
+
+
+
+
+    })
+</script>
