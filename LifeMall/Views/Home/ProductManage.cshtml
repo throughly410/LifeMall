@@ -31,43 +31,96 @@
 
 <div class="blockProduct" id="blockProduct">
     <h1>產品管理頁面</h1>
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">新增產品</button>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#createModal">新增產品</button>
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on:click="ResetInput">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="form-group m-auto d-flex justify-content-center align-items-center">
-                            <img v-bind:src="imgUrl" width="250px" alt="">
+                            <img v-bind:src="imgUrl1" width="250px" alt="">
                         </div>
                         <div class="form-group">
-                            <input type="file" class="form-control" id="recipient-name" v-on:change="PreviewImage(event)">
+                            <input type="file" class="form-control" id="recipient-name" v-on:change="PreviewImage1(event)">
+                        </div>
+                        <div class="form-group m-auto d-flex justify-content-center align-items-center">
+                            <img v-bind:src="imgUrl2" width="250px" alt="">
+                        </div>
+                        <div class="form-group">
+                            <input type="file" class="form-control" id="recipient-name" v-on:change="PreviewImage2(event)">
                         </div>
 
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">產品名稱</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input type="text" class="form-control" id="recipient-name" v-model="productName">
                         </div>
-                        <div class="form-group">
-                            <label for="message-text" class="col-form-label">產品價格</label>
-                            <textarea class="form-control" id="message-text"></textarea>
-                        </div>
-                        
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">產品描述</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input type="text" class="form-control" id="recipient-name" v-model="description">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">產品價格</label>
+                            <input type="number" class="form-control" id="recipient-name" v-model="price">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="ResetInput">取消</button>
+                    <button type="button" class="btn btn-primary" v-on:click="CreateProduct" data-dismiss="modal">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*編輯*@
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on:click="ResetInput">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group m-auto d-flex justify-content-center align-items-center">
+                            <img v-bind:src="imgUrl1" width="250px" alt="">
+                        </div>
+                        <div class="form-group">
+                            <input type="file" class="form-control" id="recipient-name" v-on:change="PreviewImage1(event)">
+                        </div>
+                        <div class="form-group m-auto d-flex justify-content-center align-items-center">
+                            <img v-bind:src="imgUrl2" width="250px" alt="">
+                        </div>
+                        <div class="form-group">
+                            <input type="file" class="form-control" id="recipient-name" v-on:change="PreviewImage2(event)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">產品名稱</label>
+                            <input type="text" class="form-control" id="recipient-name" v-model="productName">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">產品描述</label>
+                            <input type="text" class="form-control" id="recipient-name" v-model="description">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">產品價格</label>
+                            <input type="number" class="form-control" id="recipient-name" v-model="price">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="ResetInput">取消</button>
+                    <button type="button" class="btn btn-primary" v-on:click="EditProduct" data-dismiss="modal">新增</button>
                 </div>
             </div>
         </div>
@@ -81,174 +134,175 @@
             <th></th>
             <th></th>
         </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為，每個人對自己的人生擁有絕對的詮釋權，這是任何人都奪不走的。明白這個道理是我三十二歲那年，活到不想活不下去時得到的意外禮物。此後遇見挫敗哀傷，我不會再回頭連結過往的悲慘記憶，告訴自己有多可憐，因為它們已經被我「重新定義」，慢慢轉化成養分了。因此遇見這本書的「目的論」時，我非常驚喜！原來這個「魔法」早就有人發現。這是我們與生俱來的魔法，請發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+        <tr v-for="item in productData">
+            <td>{{item.ProductName}}</td>
+            <td>{{item.Price}}</td>
+            <td width="40%">{{item.Description}}</td>
+            <td><img v-bind:src="'../'+item.ImageUrl1+'.jpg'" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
+            <td><button v-on:click="EditInputFix(item)" data-toggle="modal" data-target="#editModal">編輯</button></td>
+            <td><button v-on:click="RemoveProduct(item)" >刪除</button></td>
         </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+        @*<tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
-        <tr>
-            <td>被討厭的勇氣</td>
-            <td>250</td>
-            <td width="40%">　我一直認為發現它，並好好地運用它</td>
-            <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
 
-            <td><button>編輯</button></td>
-            <td><button>刪除</button></td>
-        </tr>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>被討厭的勇氣</td>
+                <td>250</td>
+                <td width="40%">　我一直認為發現它，並好好地運用它</td>
+                <td><img src="https://picsum.photos/id/684/600/400" width="200" alt=""></td>
+
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>*@
     </table>
 
 
 </div>
 
-
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/vue.min.js"></script>
 
 <script>
@@ -256,20 +310,137 @@
     var vm = new Vue({
         el:"#blockProduct",
         data: {
-            imgUrl:"../ProductImage/imageDefault.jpg",
+            imgUrl1: "../ProductImage/imageDefault.jpg",
+            imgUrl2: "../ProductImage/imageDefault.jpg",
+            description: "",
+            price: 0,
+            productName:"",
+            eventPreview1: "",
+            eventPreview2: "",
+            productData: "",
+            productSelected: 0,
+            createOrEdit:1,
+        },
+        mounted: function ()
+        {
+            this.ResetData();
+
 
 
         },
-        mounted: function () { },
         methods: {
 
-            PreviewImage: function (event)
+            PreviewImage1: function (event)
             {
+                vm.eventPreview1 = event;
                 var file = event.target.files[0];
-                this.imgUrl = URL.createObjectURL(file);
+                this.imgUrl1 = URL.createObjectURL(file);
+                
+
+            },
+            PreviewImage2: function (event) {
+                vm.eventPreview2 = event;
+                var file = event.target.files[0];
+                this.imgUrl2 = URL.createObjectURL(file);
 
 
             },
+
+            ResetData: function ()
+            {
+                $.ajax({
+                type: "Get",
+                url:"@Url.Action("GetProduct", "ViewRepository")?categoryID=@ViewBag.categoryID",
+                dataType:"json",
+           
+                success: function (data) {
+                    vm.productData = JSON.parse(data);
+                    console.log('123');
+                }
+
+
+
+            })
+
+
+            },
+
+            SelectProduct: function (item)
+            {
+                vm.productSelected = vm.productData.indexOf(item);
+
+
+            },
+            CreateProduct: function ()
+            {
+                vm.createOrEdit = 1;
+                handleFileUpload();
+
+
+
+
+
+
+
+            },
+            EditProduct: function ()
+            {
+                vm.createOrEdit = 2;
+                handleFileUpload();
+
+
+            },
+            RemoveProduct: function (item)
+            {
+                 vm.SelectProduct(item);
+                var productID = vm.productData[vm.productSelected].ProductID;
+                $.ajax({
+                type: "Post",
+                url:"@Url.Action("RemoveProduct", "Create")",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify({ productID: productID }),
+                success: function (data) {
+
+
+                    vm.ResetInput();
+                    vm.ResetData();
+
+
+
+                }
+
+
+
+            })
+
+
+            },
+            ResetInput: function ()
+            {
+                vm.imgUrl1 = "../ProductImage/imageDefault.jpg";
+                    vm.imgUrl2 = "../ProductImage/imageDefault.jpg";
+                    vm.description = "";
+                    vm.price = 0;
+                    vm.productName = "";
+                    vm.productSelected = 0;
+
+
+            },
+            EditInputFix: function (item)
+            {
+                vm.SelectProduct(item);
+                //vm.imgUrl1 = vm.productData[vm.productSelected].ImageUrl1;
+                //vm.imgUrl2 = vm.productData[vm.productSelected].ImageUrl2;
+                vm.productName = vm.productData[vm.productSelected].ProductName;
+                vm.price = vm.productData[vm.productSelected].Price;
+                vm.description = vm.productData[vm.productSelected].Description;
+                
+            },
+
+
+
+
 
 
 
@@ -281,4 +452,170 @@
 
 
     })
+    // STEP 1: select element and register change event
+    //const imagePreview = document.querySelector('[data-target="image-preview"]');
+    //const spinner = document.querySelector('[data-target="spinner"]');
+    //const fileUploader = document.querySelector('[data-target="file-uploader"]');
+    //fileUploader.addEventListener("change", handleFileUpload);
+
+    async function handleFileUpload() {
+        try {
+            const file1 = vm.eventPreview1.target.files[0];
+            const file2 = vm.eventPreview2.target.files[0];
+           // setUploading(true);
+            if (!file1 || !file2) return;
+            
+            const beforeUploadCheck1 = await beforeUpload(file1);
+            if (!beforeUploadCheck1.isValid) throw beforeUploadCheck1.errorMessages;
+
+            const beforeUploadCheck2 = await beforeUpload(file2);
+            if (!beforeUploadCheck2.isValid) throw beforeUploadCheck2.errorMessages;
+
+            const arrayBuffer1 = await getArrayBuffer(file1);
+            const arrayBuffer2 = await getArrayBuffer(file2);
+
+            if (vm.createOrEdit==1)
+                 response = await CreateProductAjax(arrayBuffer1, arrayBuffer2);
+            if (vm.createOrEdit == 2)
+                 response = await EditProductAjax(arrayBuffer1, arrayBuffer2);
+            alert("File Uploaded Success");
+          //  showPreviewImage(file);
+        } catch (error) {
+            alert(error);
+            console.log("Catch Error: ", error);
+        } finally {
+            //vm.eventPreview1.target.value = '';
+            //vm.eventPreview2.target.value = '';
+            // reset input file
+          //  setUploading(false);
+        }
+    }
+
+    // STEP 2: showPreviewImage with createObjectURL
+    // If you prefer Base64 image, use "FileReader.readAsDataURL"
+    function showPreviewImage(fileObj) {
+        const image = URL.createObjectURL(fileObj);
+        imagePreview.src = image;
+    }
+
+    // STEP 3: change file object into ArrayBuffer
+    function getArrayBuffer(fileObj) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            // Get ArrayBuffer when FileReader on load
+            reader.addEventListener("load", () => {
+                resolve(reader.result);
+            });
+
+            // Get Error when FileReader on error
+            reader.addEventListener("error", () => {
+                reject("error occurred in getArrayBuffer");
+            });
+
+            // read the blob object as ArrayBuffer
+            // if you nedd Base64, use reader.readAsDataURL
+            reader.readAsArrayBuffer(fileObj);
+        });
+    }
+
+    // STEP 4: upload file throguth AJAX
+    // - use "new Uint8Array()"" to change ArrayBuffer into TypedArray
+    // - TypedArray is not a truely Array,
+    //   use "Array.from()" to change it into Array
+    
+    function CreateProductAjax(arrayBuffer1, arrayBuffer2)
+    {
+        
+        return fetch("@Url.Action("CreateProduct","Create")", {
+            headers: {
+                
+                'Content-Type': 'application/json;charset=utf-8',
+                'Accept': 'application/json'
+            },
+            method: "POST",
+            
+            body: JSON.stringify({
+                
+                icon1: (Array.from(new Uint8Array(arrayBuffer1))).toString(),
+                icon2: (Array.from(new Uint8Array(arrayBuffer2))).toString(),
+                description: vm.description,
+                price: vm.price,
+                productName: vm.productName,
+                categoryID: @ViewBag.categoryID
+                
+            })
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw res.statusText;
+                }
+                console.log(res);
+                vm.ResetData();
+                return res.json();
+            })
+            .then(data => data)
+            .catch(err => console.log("err", err));
+    }
+    function EditProductAjax(arrayBuffer1, arrayBuffer2)
+    {
+        var productID = vm.productData[vm.productSelected].ProductID;
+        return fetch("@Url.Action("EditProduct","Create")", {
+            headers: {
+                
+                'Content-Type':'application/json;charset=utf-8',
+                'Accept': 'application/json'
+            },
+            method: "POST",
+            
+            body: JSON.stringify({
+                icon1: (Array.from(new Uint8Array(arrayBuffer1))).toString(),
+                icon2: (Array.from(new Uint8Array(arrayBuffer2))).toString(),
+                description: vm.description,
+                price: vm.price,
+                productName: vm.productName,
+                productID: productID
+            })
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw res.statusText;
+                }
+                console.log(res);
+                vm.ResetData();
+                return res.json();
+            })
+            .then(data => data)
+            .catch(err => console.log("err", err));
+    }
+    // STEP 5: Create before upload checker if needed
+    function beforeUpload(fileObject) {
+        return new Promise(resolve => {
+            const validFileTypes = ["image/jpeg", "image/png"];
+            const isValidFileType = validFileTypes.includes(fileObject.type);
+            let errorMessages = [];
+
+            if (!isValidFileType) {
+                errorMessages.push("You can only upload JPG or PNG file!");
+            }
+
+            const isValidFileSize = fileObject.size / 1024 / 1024 < 2;
+            if (!isValidFileSize) {
+                errorMessages.push("Image must smaller than 2MB!");
+            }
+
+            resolve({
+                isValid: isValidFileType && isValidFileSize,
+                errorMessages: errorMessages.join("\n")
+            });
+        });
+    }
+
+    function setUploading(isUploading) {
+        if (isUploading === true) {
+            spinner.classList.add("opacity-1");
+        } else {
+            spinner.classList.remove("opacity-1");
+        }
+    }
+
 </script>

@@ -9,25 +9,6 @@
     <Property Name="ProductID" Type="Int32" Nullable="false" />
     <Property Name="Quantity" Type="Int32" Nullable="false" />
   </EntityType>
-  <EntityType Name="Category">
-    <Key>
-      <PropertyRef Name="Category1" />
-    </Key>
-    <Property Name="Category1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ParentID" Type="Int32" Nullable="false" />
-    <Property Name="CategoryName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Member">
-    <Key>
-      <PropertyRef Name="MemberID" />
-    </Key>
-    <Property Name="MemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Phone" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Address" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Sex" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-  </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
       <PropertyRef Name="OrderDetailID" />
@@ -36,17 +17,6 @@
     <Property Name="OrderListID" Type="Guid" Nullable="false" />
     <Property Name="ProductID" Type="Int32" Nullable="false" />
     <Property Name="Quantity" Type="Int32" Nullable="false" />
-  </EntityType>
-  <EntityType Name="OrderListID">
-    <Key>
-      <PropertyRef Name="OrderListID1" />
-    </Key>
-    <Property Name="OrderListID1" Type="Guid" Nullable="false" />
-    <Property Name="MemberID" Type="Int32" Nullable="false" />
-    <Property Name="Receiver" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Address" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Phone" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -57,13 +27,51 @@
     <Property Name="Price" Type="Int32" Nullable="false" />
     <Property Name="CategoryID" Type="Int32" Nullable="false" />
     <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="ImageUrl1" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ImageUrl2" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityContainer Name="LifeMallDBContext" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Cart" EntityType="Self.Cart" />
-    <EntitySet Name="Category" EntityType="Self.Category" />
-    <EntitySet Name="Member" EntityType="Self.Member" />
     <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" />
-    <EntitySet Name="OrderListID" EntityType="Self.OrderListID" />
     <EntitySet Name="Product" EntityType="Self.Product" />
+    <EntitySet Name="Category" EntityType="LifeMallDBModel.Category" />
+    <EntitySet Name="OrderList" EntityType="LifeMallDBModel.OrderList" />
+    <EntitySet Name="Member" EntityType="LifeMallDBModel.Member" />
   </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParentID" Type="Int32" Nullable="false" />
+    <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="OrderList">
+    <Key>
+      <PropertyRef Name="OrderListID" />
+    </Key>
+    <Property Name="OrderListID" Type="Guid" Nullable="false" />
+    <Property Name="MemberID" Type="Int32" Nullable="false" />
+    <Property Name="Receiver" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ZipCode" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="MemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Phone" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Sex" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Account" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="role" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
 </Schema>

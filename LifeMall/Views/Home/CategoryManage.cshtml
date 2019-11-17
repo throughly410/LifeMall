@@ -1,33 +1,261 @@
-﻿
-<table border=2 width=300 align="center">
-    <tr>
-        <th>索引</th>
-        <th>分類項目</th>
-        <th>編輯</th>
-        <th>刪除</th>
-    </tr>
-    <tr>
-        <td>01</td>
-        <td>書籍</td>
-        <td><button>編輯</button></td>
-        <td><button>刪除</button></td>
-    </tr>
-    <tr>
-        <td>01</td>
-        <td>書籍</td>
-        <td><button>編輯</button></td>
-        <td><button>刪除</button></td>
-    </tr>
-    <tr>
-        <td>01</td>
-        <td>書籍</td>
-        <td><button>編輯</button></td>
-        <td><button>刪除</button></td>
-    </tr>
-    <tr>
-        <td>01</td>
-        <td>書籍</td>
-        <td><button>編輯</button></td>
-        <td><button>刪除</button></td>
-    </tr>
-</table>
+﻿<style>
+    .blockCategory {
+        display: block;
+        width: 800px
+    }
+
+    .blockProduct {
+        display: block;
+        z-index: 20;
+    }
+
+    .modal-backdrop {
+        z-index: 1040;
+        display: none;
+    }
+
+    .modal-dialog {
+        margin: 2px auto;
+        z-index: 1100;
+    }
+
+    .blockProduct td img {
+        padding: 20px;
+    }
+</style>
+
+
+<div id="main" class="blockCategory">
+    <h1>類別管理頁面</h1>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#createModal">新增產品</button>
+    @*新增*@
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on:click="ResetInput">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">分類名稱</label>
+                            <input type="text" class="form-control" id="recipient-name" v-model="categoryNameInput">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="ResetInput">取消</button>
+                    <button type="button" class="btn btn-primary" v-on:click="CreateCategory" data-dismiss="modal">新增</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*編輯*@
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on:click="ResetInput">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">分類名稱</label>
+                            <input type="text" class="form-control" id="recipient-name" v-model="categoryNameInput">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="ResetInput">取消</button>
+                    <button type="button" class="btn btn-primary" v-on:click="EditCategory" data-dismiss="modal">修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <table border=2 width=300 align="center">
+        <tr>
+            <th>索引</th>
+            <th>分類項目</th>
+            <th>編輯</th>
+            <th>刪除</th>
+            <th>商品上架</th>
+        </tr>
+        <tr v-for="(item,index) in categoryData">
+            <td>{{index+1}}</td>
+            <td>{{item.CategoryName}}</td>
+            <td><button v-on:click="SelectCategory(item)" data-toggle="modal" data-target="#editModal">編輯</button></td>
+            <td><button v-on:click="RemoveCategory(item)">刪除</button></td>
+            <td><button v-on:click="window.location.href='@Url.Action("ProductManage","Home")?categoryID='+item.CategoryID">商品上架</button></td>
+        </tr>
+        @*<tr>
+                <td>01</td>
+                <td>書籍</td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>01</td>
+                <td>書籍</td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>
+            <tr>
+                <td>01</td>
+                <td>書籍</td>
+                <td><button>編輯</button></td>
+                <td><button>刪除</button></td>
+            </tr>*@
+    </table>
+</div>
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/vue.min.js"></script>
+<script>
+    var vm = new Vue({
+        el: "#main",
+        data: {
+            categoryNameInput: "",
+            categorySelected: 0,
+            categoryData: {}
+
+        },
+        mounted: function () {
+            this.ResetData();
+
+
+        },
+        methods:
+        {
+            ResetInput: function ()
+            {
+                vm.categoryNameInput = "";
+                vm.categorySelected = 0;
+            },
+            ResetData: function ()
+            {
+                $.ajax({
+                type: "Get",
+                url:"@Url.Action("GetCategory", "ViewRepository")",
+                dataType:"json",
+           
+                success: function (data) {
+                    vm.categoryData = JSON.parse(data);
+                    console.log('123');
+                }
+
+
+
+            })
+
+
+            },
+            EditNameInput: function (item)
+            {
+                vm.SelectCategory(item);
+                vm.categoryNameInput = vm.categoryData[vm.categorySelected].CategoryName;
+
+            },
+            SelectCategory: function (item)
+            {
+                vm.categorySelected = vm.categoryData.indexOf(item);
+                
+                
+            },
+            CreateCategory: function ()
+            {
+                
+                 $.ajax({
+                type: "Post",
+                url:"@Url.Action("CreateCategory", "Create")",
+                     dataType: "json",
+                     contentType:"application/json",
+                     data: JSON.stringify({ categoryName: vm.categoryNameInput, parentID:-1}),
+                success: function (data) {
+                    vm.ResetInput();
+                    vm.ResetData();
+                    console.log('reset');
+
+
+                }
+
+
+
+            })
+
+
+            },
+            EditCategory: function ()
+            {
+               
+                var categoryID = vm.categoryData[vm.categorySelected].CategoryID;
+                
+                 $.ajax({
+                type: "Post",
+                url:"@Url.Action("EditCategory", "Create")",
+                     dataType: "json",
+                     contentType: "application/json",
+                     data: JSON.stringify({ categoryName: vm.categoryNameInput, categoryID: categoryID }),
+                success: function (data) {
+                    vm.ResetInput();
+                    vm.ResetData();
+
+
+
+                }
+
+
+
+            })
+
+
+            },
+            RemoveCategory: function (item)
+            {
+                vm.SelectCategory(item);
+                var categoryID = vm.categoryData[vm.categorySelected].CategoryID;
+                $.ajax({
+                type: "Post",
+                url:"@Url.Action("RemoveCategory", "Create")",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify({ categoryID: categoryID }),
+                success: function (data) {
+
+
+                    vm.ResetInput();
+                    vm.ResetData();
+
+
+
+                }
+
+
+
+            })
+
+            },
+
+
+
+        }
+
+
+
+
+    })
+</script>

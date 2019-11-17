@@ -26,10 +26,10 @@ namespace LifeMall.Models
         }
     
         public virtual DbSet<Cart> Cart { get; set; }
-        public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Member> Member { get; set; }
         public virtual DbSet<OrderDetail> OrderDetail { get; set; }
-        public virtual DbSet<OrderListID> OrderListID { get; set; }
         public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<OrderList> OrderList { get; set; }
+        public virtual DbSet<Member> Member { get; set; }
     }
 }

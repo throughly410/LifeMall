@@ -11,14 +11,32 @@ namespace LifeMall.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using LifeMall.Attribute;
     public partial class Member
     {
         public int MemberID { get; set; }
+        [Required]
+        [CellPhone]
         public string Phone { get; set; }
+        [Required]
         public string Address { get; set; }
+        [EmailAddress]
+        [Required]
         public string Email { get; set; }
+        [Required]
         public string Sex { get; set; }
+        [Required]
         public System.DateTime CreateDate { get; set; }
+        [Required]
+        public System.DateTime Birthday { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Account { get; set; }
+        [Required]
+        public string Password { get; set; }
+        public int role { get; set; }
     }
 }

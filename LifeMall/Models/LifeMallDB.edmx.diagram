@@ -6,11 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="a82bbe4154aa4cff931253665b7e3a68" Name="Diagram1">
         <EntityTypeShape EntityType="LifeMallDBModel.Cart" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LifeMallDBModel.Category" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LifeMallDBModel.Member" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="LifeMallDBModel.OrderDetail" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LifeMallDBModel.OrderListID" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LifeMallDBModel.Product" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LifeMallDBModel.Product" Width="1.5" PointX="6.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LifeMallDBModel.Category" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="LifeMallDBModel.OrderList" Width="1.5" PointX="3.375" PointY="6.75" />
+        <EntityTypeShape EntityType="LifeMallDBModel.Member" Width="1.5" PointX="0.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

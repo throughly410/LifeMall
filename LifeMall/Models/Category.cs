@@ -14,7 +14,7 @@ namespace LifeMall.Models
     
     public partial class Category
     {
-        public int Category1 { get; set; }
+        public int CategoryID { get; set; }
         public int ParentID { get; set; }
         public string CategoryName { get; set; }
     }

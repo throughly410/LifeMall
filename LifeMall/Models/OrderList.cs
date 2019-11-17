@@ -12,13 +12,14 @@ namespace LifeMall.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderListID
+    public partial class OrderList
     {
-        public System.Guid OrderListID1 { get; set; }
+        public System.Guid OrderListID { get; set; }
         public int MemberID { get; set; }
         public string Receiver { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
         public System.DateTime OrderDate { get; set; }
+        public string ZipCode { get; set; }
     }
 }

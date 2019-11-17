@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<LifeMall.Models.Product>
+@{
     ViewBag.Title = "Home Page";
 }
 <!-- Product Catagories Area Start -->
@@ -6,20 +7,25 @@
     <div class="amado-pro-catagory clearfix">
 
         <!-- Single Catagory -->
+        @foreach (var item in Model)
+        
+        {
+
         <div class="single-products-catagory clearfix">
-            <a href="shop.html">
-                <img src="~/img/bg-img/1.jpg" alt="">
+            <a href="@Url.Action("Product","Home")?productID=@item.ProductID">
+                <img src="../@(item.ImageUrl1).jpg" alt="">
                 <!-- Hover Content -->
                 <div class="hover-content">
                     <div class="line"></div>
-                    <p>From $180</p>
-                    <h4>Modern Chair</h4>
+                    <p>@item.Price</p>
+                    <h4>@item.ProductName</h4>
                 </div>
             </a>
         </div>
 
-        <!-- Single Catagory -->
-        <div class="single-products-catagory clearfix">
+        }
+         @*Single Catagory*@ 
+        @*<div class="single-products-catagory clearfix">
             <a href="shop.html">
                 <img src="~/img/bg-img/2.jpg" alt="">
                 <!-- Hover Content -->
@@ -34,7 +40,7 @@
         <!-- Single Catagory -->
         <div class="single-products-catagory clearfix">
             <a href="shop.html">
-                <img src="~/img/bg-img/3.jpg" alt="">
+                <img src="~/ProductImage/Cat01.jpg" alt="">
                 <!-- Hover Content -->
                 <div class="hover-content">
                     <div class="line"></div>
@@ -156,7 +162,50 @@
                     <h4>Home Deco</h4>
                 </div>
             </a>
-        </div>
+        </div>*@
     </div>
 </div>
 <!-- Product Catagories Area End -->
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/vue.min.js"></script>
+
+<script>
+
+
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            indexData: "",
+
+        },
+        mounted: function () {
+            this.ResetData();
+
+
+
+        },
+        methods:
+        {
+            ResetData: function () {
+                $.ajax({
+                    type: "Get",
+                    url: "@Url.Action("GetIndex", "ViewRepository")",
+                    dataType: "json",
+
+                    success: function (data) {
+                        vm.indexData = JSON.parse(data);
+                        console.log('123');
+                    }
+
+
+
+                })
+
+
+            },
+
+        }
+    })
+</script>

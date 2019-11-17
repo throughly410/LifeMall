@@ -45,7 +45,7 @@
     </div>
     <!-- Search Wrapper Area End -->
     <!-- ##### Main Content Wrapper Start ##### -->
-    <div class="main-content-wrapper d-flex clearfix">
+    <div class="main-content-wrapper d-flex clearfix" id="app">
 
         <!-- Mobile Nav (max width 767px)-->
         <div class="mobile-nav">
@@ -67,16 +67,19 @@
             </div>
             <!-- Logo -->
             <div class="logo">
-                <a href="index.html"><img src="~/img/core-img/logo.png" alt=""></a>
+                <a href="@Url.Action("Index","Home")"><img src="~/LifeMallLogo.PNG" alt=""></a>
             </div>
             <!-- Amado Nav -->
             <nav class="amado-nav">
                 <ul>
-                    <li class="active"><a href="@Url.Action("Index")">Home</a></li>
-                    <li><a href="@Url.Action("Catalogue")">Shop</a></li>
-                    <li><a href="@Url.Action("Product")">Product</a></li>
-                    <li><a href="@Url.Action("Cart")">Cart</a></li>
-                    <li><a href="@Url.Action("CheckOut")">Checkout</a></li>
+                    <li class="active"><a href="@Url.Action("Index","Home")">Home</a></li>
+                    <li><a href="@Url.Action("Catalogue","Home")">Shop</a></li>
+                    <li><a href="@Url.Action("Cart","Home")">Cart</a></li>
+                    <li><a href="@Url.Action("CheckOut","Home")">Checkout</a></li>
+                    <li><a href="@Url.Action("CategoryManage","Home")">CategoryManage</a></li>
+                    <li><a href="@Url.Action("Login","Account")">Login</a></li>
+                    <li><a href="@Url.Action("Logout","Account")">Logout</a></li>
+                    <li><a href="@Url.Action("Register","Account")">Register</a></li>
                 </ul>
             </nav>
             <!-- Button Group -->
@@ -141,7 +144,7 @@
                 <div class="single_widget_area">
                     <!-- Logo -->
                     <div class="footer-logo mr-50">
-                        <a href="index.html"><img src="~/img/core-img/logo2.png" alt=""></a>
+                        <a href="index.html"><img src="~/LifeMallLogo.PNG" alt=""></a>
                     </div>
                     <!-- Copywrite Text -->
                     <p class="copywrite">
@@ -161,19 +164,16 @@
                             <div class="collapse navbar-collapse" id="footerNavContent">
                                 <ul class="navbar-nav ml-auto">
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">Home</a>
+                                        <a class="nav-link" href="@Url.Action("Index","Home")">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="shop.html">Shop</a>
+                                        <a class="nav-link" href="@Url.Action("Catalogue","Home")">Shop</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="product-details.html">Product</a>
+                                        <a class="nav-link" href="@Url.Action("Cart","Home")">Cart</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="cart.html">Cart</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="checkout.html">Checkout</a>
+                                        <a class="nav-link" href="@Url.Action("CheckOut","Home")">Checkout</a>
                                     </li>
                                 </ul>
                             </div>
